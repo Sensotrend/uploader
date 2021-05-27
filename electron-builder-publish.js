@@ -1,9 +1,15 @@
+const versionHelper = require('./scripts/run-with-version');
+// Values in package.json are not read, so import explicitly.
+const pkg = require('./package.json');
+const environments = require('./environment.config');
+
 const config = {
   publish: [
       'github'
   ],
-  productName: 'Sensotrend Uploader',
-  appId: 'org.sensotrend.SensotrendUploader',
+  productName: pkg.build.productName,
+  appId: pkg.build.appId,
+  artifactName: 'Sensotrend Uploader-${version}.${ext}',
   directories: {
     buildResources: 'resources',
     output: 'release'
@@ -93,35 +99,32 @@ const config = {
       },
       'dir'
     ]
+  },
+  linux: {
+    target: ['AppImage'],
+    category: 'Utility',
   }
 };
 
-console.log('CIRCLE_TAG:', process.env.CIRCLE_TAG);
-console.log('APPVEYOR_REPO_TAG:', process.env.APPVEYOR_REPO_TAG);
+const environment = environments.envConfig;
+const envAddress = environment.updateURL;
+console.log(`Environment: ${environments.environment},` +
+  ` update address: ${envAddress}`);
 
-if ( (process.env.CIRCLE_TAG && process.env.CIRCLE_TAG.length > 0) ||
-     (process.env.APPVEYOR_REPO_TAG_NAME && process.env.APPVEYOR_REPO_TAG_NAME.length > 0) ) {
-  let releaseType = null;
-
-  if ( (process.env.CIRCLE_TAG && process.env.CIRCLE_TAG.indexOf('-') !== -1) ||
-       (process.env.APPVEYOR_REPO_TAG_NAME && process.env.APPVEYOR_REPO_TAG_NAME.indexOf('-') !== -1) ) {
-    // non-production releases have hyphens in their tags
-    releaseType = 'pre-release';
-  } else {
-    releaseType = 'release';
-  }
-
+if (envAddress) {
+  const {channel} = versionHelper.resolveVersion();
   config.publish = [
     {
-      provider: 'github',
-      owner: 'tidepool-org', // required to overwrite existing binaries
-      releaseType: releaseType,
-    },
-    {
-      provider: 's3',
-      bucket: 'downloads.tidepool.org',
+      provider: 'generic',
+      url: envAddress,
+      channel: channel,
     },
   ];
+} else {
+  // eslint-disable-next-line
+  const allowed = Object.keys(UPDATE_ADDRESSES).join(', ');
+  throw new Error(`Environment ${environment} not defined.` +
+   ` Allowed values are: ${allowed}.`);
 }
 
 module.exports = config;
