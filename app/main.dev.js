@@ -86,7 +86,7 @@ app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') app.quit();
 });
 
-const installExtensions = async () => {
+/* const installExtensions = async () => {
   if (process.env.NODE_ENV === 'development') {
     const { default: installExtension, REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS } = require('electron-devtools-installer');
     const options = {
@@ -100,7 +100,7 @@ const installExtensions = async () => {
       console.log('An error occurred: ', err);
     }
   }
-};
+}; */
 
 function addDataPeriodGlobalListener(menu) {
   ipcMain.on('setUploadDataPeriodGlobal', (event, arg) => {
@@ -138,7 +138,7 @@ const openExternalUrl = (url) => {
 };
 
 app.on('ready', async () => {
-  await installExtensions();
+  // await installExtensions();
   setLanguage();
 });
 
@@ -149,7 +149,10 @@ function createWindow() {
     show: false,
     width: 663,
     height: 769,
-    resizable: resizable,
+    fullscreen: true,
+    kiosk:true,
+    frame: false,
+    autoHideMenuBar: true,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false, // so that we can access process from app.html

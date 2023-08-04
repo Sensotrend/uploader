@@ -23,15 +23,27 @@ import styles from '../../styles/components/Footer.module.less';
 import logo from '../../images/JDRF_Reverse_Logo x2.png';
 import debugMode from '../utils/debugMode';
 import { getOSDetails } from '../actions/utils';
-
 const remote = require('@electron/remote');
 const i18n = remote.getGlobal( 'i18n' );
 
+
+function instructionClick() {
+  const win = new remote.BrowserWindow({ width: 800, height: 600, frame:false });
+  win.loadURL('https://www.sensotrend.fi/connect/instructions/uploader');
+}
+function privacyClick() {
+  const win = new remote.BrowserWindow({ width: 800, height: 600, frame:false });
+  win.loadURL('https://www.sensotrend.fi/connect/privacy/');
+}
+function eulaClick() {
+  const win = new remote.BrowserWindow({ width: 800, height: 600, frame:false });
+  win.loadURL('https://www.sensotrend.fi/connect/eula/');
+}
 export default class Footer extends Component {
   static propTypes = {
     version: PropTypes.string.isRequired,
   };
-
+  
   render() {
     const version = this.props.version;
     let osArch = '';
@@ -46,13 +58,13 @@ export default class Footer extends Component {
       <div className={styles.footer}>
         <div className={styles.footerRow}>
           <div className={styles.el1}>
-            <a className={styles.footerLink} href="https://www.sensotrend.fi/connect/instructions/uploader" target="_blank">{i18n.t('Get Support')}</a>
+            <a className={styles.footerLink} href="#" onClick={instructionClick}>{i18n.t('Get Support')}</a>
           </div>
           <div className={styles.el2}>
-            <a className={styles.footerLink} href="https://www.sensotrend.fi/connect/privacy/" target="_blank">{i18n.t('Privacy')}</a>
+            <a className={styles.footerLink} href="#" onClick={privacyClick}>{i18n.t('Privacy')}</a>
           </div>
           <div className={styles.el3}>
-            <a className={styles.footerLink} href="https://www.sensotrend.fi/connect/eula/" target="_blank">{i18n.t('Terms of Use')}</a>
+            <a className={styles.footerLink} href="#" onClick={eulaClick}>{i18n.t('Terms of Use')}</a>
           </div>
           {/*
           <div className={styles.jdrfContainer}>

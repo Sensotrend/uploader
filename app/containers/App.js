@@ -23,7 +23,7 @@ import { bindActionCreators } from 'redux';
 import { ipcRenderer } from 'electron';
 import { Route, Switch } from 'react-router-dom';
 import dns from 'dns';
-
+const remote = require('@electron/remote');
 const { getCurrentWindow, Menu } = remote;
 const i18n = remote.getGlobal( 'i18n' );
 import i18nextOptions from '../utils/config.i18next';
@@ -65,8 +65,6 @@ import BluetoothModal from '../components/BluetoothModal';
 import LoggedOut from '../components/LoggedOut.js';
 
 import styles from '../../styles/components/App.module.less';
-
-const remote = require('@electron/remote');
 
 const serverdata = {
   Local: {
