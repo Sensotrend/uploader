@@ -114,18 +114,6 @@ export const Login = () => {
           />
         </div>
         <div className={styles.actions}>
-          <div>
-            <div className={styles.remember}>
-              <input
-                type="checkbox"
-                id="remember"
-                value={remember}
-                onChange={(e) => setRemember(e.target.checked)}
-              />
-              <label htmlFor="remember">{i18n.t('Remember me')}</label>
-            </div>
-            <div className={styles.forgot}>{renderForgotPasswordLink()}</div>
-          </div>
           <div>{renderButton()}</div>
         </div>
         <div className={styles.error}>{renderError()}</div>
