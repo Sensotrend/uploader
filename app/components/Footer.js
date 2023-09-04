@@ -18,6 +18,7 @@
 import PropTypes from 'prop-types';
 
 import React, { Component } from 'react';
+import { BrowserWindow, shell } from 'electron';
 
 import styles from '../../styles/components/Footer.module.less';
 import logo from '../../images/JDRF_Reverse_Logo x2.png';
@@ -28,17 +29,18 @@ const i18n = remote.getGlobal( 'i18n' );
 
 
 function instructionClick() {
-  const win = new remote.BrowserWindow({ width: 800, height: 600, frame:false });
+  const win = new remote.BrowserWindow({ width: 800, height: 600, frame:false, titleBarStyle: 'hidden', titleBarOverlay: true });
   win.loadURL('https://www.sensotrend.fi/connect/instructions/uploader');
 }
 function privacyClick() {
-  const win = new remote.BrowserWindow({ width: 800, height: 600, frame:false });
+  const win = new remote.BrowserWindow({ width: 800, height: 600, frame:false, titleBarStyle: 'hidden', titleBarOverlay: true  });
   win.loadURL('https://www.sensotrend.fi/connect/privacy/');
 }
 function eulaClick() {
-  const win = new remote.BrowserWindow({ width: 800, height: 600, frame:false });
+  const win = new remote.BrowserWindow({ width: 800, height: 600, frame:false, titleBarStyle: 'hidden', titleBarOverlay: true  });
   win.loadURL('https://www.sensotrend.fi/connect/eula/');
 }
+
 export default class Footer extends Component {
   static propTypes = {
     version: PropTypes.string.isRequired,
