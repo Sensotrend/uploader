@@ -25,6 +25,7 @@ import logo from '../../images/JDRF_Reverse_Logo x2.png';
 import debugMode from '../utils/debugMode';
 import { getOSDetails } from '../actions/utils';
 const remote = require('@electron/remote');
+const { getCurrentWindow } = remote;
 const i18n = remote.getGlobal( 'i18n' );
 
 
@@ -39,6 +40,22 @@ function privacyClick() {
 function eulaClick() {
   const win = new remote.BrowserWindow({ width: 800, height: 600, frame:false, titleBarStyle: 'hidden', titleBarOverlay: true  });
   win.loadURL('https://www.sensotrend.fi/connect/eula/');
+}
+function finnishClick() {
+  i18n.changeLanguage('fi')
+            .then((t) => {
+              console.log('New language', i18n.language, t('Done'));
+              getCurrentWindow().reload();              
+            })
+            .catch(console.error);
+}
+function swedishClick() {
+  i18n.changeLanguage('sv')
+            .then((t) => {
+              console.log('New language', i18n.language, t('Done'));
+              getCurrentWindow().reload();              
+            })
+            .catch(console.error);
 }
 
 export default class Footer extends Component {
@@ -67,6 +84,12 @@ export default class Footer extends Component {
           </div>
           <div className={styles.el3}>
             <a className={styles.footerLink} href="#" onClick={eulaClick}>{i18n.t('Terms of Use')}</a>
+          </div>
+          <div className={styles.el3}>
+            <a className={styles.footerLink} href="#" onClick={finnishClick}>Suomi</a>
+          </div>
+          <div className={styles.el3}>
+            <a className={styles.footerLink} href="#" onClick={swedishClick}>Sverige</a>
           </div>
           {/*
           <div className={styles.jdrfContainer}>
