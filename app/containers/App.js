@@ -238,7 +238,7 @@ export class App extends Component {
     );
   }
 
-  handleContextMenu = e => {
+  /* handleContextMenu = e => {
     e.preventDefault();
     const { clientX, clientY } = e;
     let template = [];
@@ -299,7 +299,7 @@ export class App extends Component {
     // const menu = Menu.buildFromTemplate(template);
     const menu = remote.Menu.buildFromTemplate(template);
     menu.popup(remote.getCurrentWindow());
-  };
+  }; */
 
   handleDismissDropdown = () => {
     const { dropdown } = this.props;
