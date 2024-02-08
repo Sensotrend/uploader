@@ -1,8 +1,8 @@
 {
-  "name": "sensotrend-uploader",
-  "productName": "sensotrend-uploader",
-  "version": "2.53.0",
-  "description": "Sensotrend Uploader",
+  "name": "tidepool-uploader",
+  "productName": "tidepool-uploader",
+  "version": "2.56.1",
+  "description": "Tidepool Project Universal Uploader",
   "main": "./main.prod.js",
   "author": {
     "name": "Sensotrend Oy",
