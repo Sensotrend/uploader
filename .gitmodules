@@ -1,3 +1,6 @@
 [submodule "lib/drivers/tandem"]
 	path = lib/drivers/tandem
 	url = https://github.com/Sensotrend/tandem-driver.git
+[submodule "lib/drivers/tandem/tandem-driver"]
+	path = lib/drivers/tandem/tandem-driver
+	url = https://github.com/Sensotrend/tandem-driver.git
